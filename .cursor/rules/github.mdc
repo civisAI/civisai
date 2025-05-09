@@ -11,6 +11,10 @@ alwaysApply: true
 <li>The repository for this project is civisAI/civisai</li>
 </repository>
 
+<env-variables>
+The .env file is located in the repository root. This file is ignored by Cursor and git for security reasons. If you identify this should be present, advise what configuration this file should show directly and await confirmation from the user before taking the action requiring this file.
+</env-variables>
+
 <commits>
 <li>Commits should focus on one action</li>
 <li>If multiple tasks have been completed since the last push, commit each separately</li>
