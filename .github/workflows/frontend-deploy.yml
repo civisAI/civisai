@@ -54,12 +54,18 @@ jobs:
           [start]
           cmd = "npx serve -s dist"' > nixpacks.toml
           
+      - name: Create Procfile
+        run: |
+          cd application/frontend
+          echo "web: npx serve -s dist" > Procfile
+          
       - name: Prepare for deployment
         run: |
           cd application/frontend
           cp package.json dist/
           cp pnpm-lock.yaml dist/
           cp nixpacks.toml dist/
+          cp Procfile dist/
           
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1

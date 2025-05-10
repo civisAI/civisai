@@ -52,12 +52,18 @@ jobs:
           [start]
           cmd = "node dist/index.js"' > nixpacks.toml
           
+      - name: Create Procfile
+        run: |
+          cd application/backend
+          echo "web: node dist/index.js" > Procfile
+          
       - name: Prepare for deployment
         run: |
           cd application/backend
           cp package.json dist/
           cp pnpm-lock.yaml dist/
           cp nixpacks.toml dist/
+          cp Procfile dist/
           
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
