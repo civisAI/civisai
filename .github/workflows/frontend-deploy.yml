@@ -54,10 +54,17 @@ jobs:
           [start]
           cmd = "npx serve -s dist"' > nixpacks.toml
           
+      - name: Prepare for deployment
+        run: |
+          cd application/frontend
+          cp package.json dist/
+          cp pnpm-lock.yaml dist/
+          cp nixpacks.toml dist/
+          
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
         with:
           app-name: civisai-frontend
-          build-dir: application/frontend
+          build-dir: application/frontend/dist
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 

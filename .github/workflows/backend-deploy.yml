@@ -52,11 +52,18 @@ jobs:
           [start]
           cmd = "node dist/index.js"' > nixpacks.toml
           
+      - name: Prepare for deployment
+        run: |
+          cd application/backend
+          cp package.json dist/
+          cp pnpm-lock.yaml dist/
+          cp nixpacks.toml dist/
+          
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
         with:
           app-name: civisai-backend
-          build-dir: application/backend
+          build-dir: application/backend/dist
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
           start-command: "node dist/index.js"
