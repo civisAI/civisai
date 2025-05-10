@@ -41,7 +41,7 @@ jobs:
         run: |
           cd application/backend
           echo '[phases.setup]
-          nixPkgs = ["nodejs", "pnpm"]
+          nixPkgs = ["nodejs_20", "pnpm-8_x"]
 
           [phases.install]
           cmds = ["pnpm install"]
