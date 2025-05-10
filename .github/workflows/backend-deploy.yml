@@ -60,7 +60,19 @@ jobs:
       - name: Prepare for deployment
         run: |
           cd application/backend
-          cp package.json dist/
+          # Create a new package.json for the dist directory
+          echo '{
+            "name": "civisai-backend",
+            "version": "1.0.0",
+            "private": true,
+            "engines": {
+              "node": "20.x",
+              "pnpm": "8.x"
+            },
+            "scripts": {
+              "start": "node dist/index.js"
+            }
+          }' > dist/package.json
           cp pnpm-lock.yaml dist/
           cp nixpacks.toml dist/
           cp Procfile dist/
