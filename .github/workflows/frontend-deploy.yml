@@ -67,4 +67,5 @@ jobs:
           app-name: civisai-frontend
           build-dir: application/frontend/dist
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
-          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
+          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          start-command: "npx serve -s dist" 
