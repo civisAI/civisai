@@ -39,9 +39,30 @@ jobs:
         env:
           VITE_API_URL: https://civisai-ls8ws.kinsta.app
           
-      - name: Create nixpacks.toml
+      - name: Prepare for deployment
         run: |
           cd application/frontend
+          # Create a new package.json in the dist directory
+          echo '{
+            "name": "civisai-frontend",
+            "version": "1.0.0",
+            "private": true,
+            "engines": {
+              "node": "20.x",
+              "pnpm": "8.x"
+            },
+            "scripts": {
+              "start": "npx serve -s ."
+            },
+            "dependencies": {
+              "serve": "^14.2.1"
+            }
+          }' > dist/package.json
+          
+          # Create a Procfile in the dist directory
+          echo "web: npx serve -s ." > dist/Procfile
+          
+          # Create a nixpacks.toml in the dist directory
           echo '[phases.setup]
           nixPkgs = ["nodejs_20", "pnpm-8_x"]
 
@@ -52,35 +73,7 @@ jobs:
           cmds = ["pnpm build"]
 
           [start]
-          cmd = "npx serve -s dist"' > nixpacks.toml
-          
-      - name: Create Procfile
-        run: |
-          cd application/frontend
-          echo "web: npx serve -s dist" > Procfile
-          
-      - name: Prepare for deployment
-        run: |
-          cd application/frontend
-          # Create a new package.json for the dist directory
-          echo '{
-            "name": "civisai-frontend",
-            "version": "1.0.0",
-            "private": true,
-            "engines": {
-              "node": "20.x",
-              "pnpm": "8.x"
-            },
-            "scripts": {
-              "start": "npx serve -s dist"
-            },
-            "dependencies": {
-              "serve": "^14.2.1"
-            }
-          }' > dist/package.json
-          cp pnpm-lock.yaml dist/
-          cp nixpacks.toml dist/
-          cp Procfile dist/
+          cmd = "npx serve -s ."' > dist/nixpacks.toml
           
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
@@ -89,4 +82,4 @@ jobs:
           build-dir: application/frontend/dist
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-          start-command: "npx serve -s dist" 
+          start-command: "npx serve -s ." 

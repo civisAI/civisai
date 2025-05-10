@@ -37,9 +37,27 @@ jobs:
           cd application/backend
           pnpm build
           
-      - name: Create nixpacks.toml
+      - name: Prepare for deployment
         run: |
           cd application/backend
+          # Create a new package.json in the dist directory
+          echo '{
+            "name": "civisai-backend",
+            "version": "1.0.0",
+            "private": true,
+            "engines": {
+              "node": "20.x",
+              "pnpm": "8.x"
+            },
+            "scripts": {
+              "start": "node index.js"
+            }
+          }' > dist/package.json
+          
+          # Create a Procfile in the dist directory
+          echo "web: node index.js" > dist/Procfile
+          
+          # Create a nixpacks.toml in the dist directory
           echo '[phases.setup]
           nixPkgs = ["nodejs_20", "pnpm-8_x"]
 
@@ -50,32 +68,7 @@ jobs:
           cmds = ["pnpm build"]
 
           [start]
-          cmd = "node dist/index.js"' > nixpacks.toml
-          
-      - name: Create Procfile
-        run: |
-          cd application/backend
-          echo "web: node dist/index.js" > Procfile
-          
-      - name: Prepare for deployment
-        run: |
-          cd application/backend
-          # Create a new package.json for the dist directory
-          echo '{
-            "name": "civisai-backend",
-            "version": "1.0.0",
-            "private": true,
-            "engines": {
-              "node": "20.x",
-              "pnpm": "8.x"
-            },
-            "scripts": {
-              "start": "node dist/index.js"
-            }
-          }' > dist/package.json
-          cp pnpm-lock.yaml dist/
-          cp nixpacks.toml dist/
-          cp Procfile dist/
+          cmd = "node index.js"' > dist/nixpacks.toml
           
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
@@ -84,7 +77,7 @@ jobs:
           build-dir: application/backend/dist
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-          start-command: "node dist/index.js"
+          start-command: "node index.js"
           env-vars: |
             PORT=3001
             NODE_ENV=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
