@@ -58,6 +58,6 @@ jobs:
         uses: kinsta/github-action-deploy@v1
         with:
           app-name: civisai-frontend
-          build-dir: application/frontend/dist
+          build-dir: application/frontend
           api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
