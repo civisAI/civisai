@@ -1,14 +1,14 @@
-name: Deploy Frontend to Kinsta
+name: Deploy Backend to Kinsta
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'application/frontend/**'
+      - 'application/backend/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'application/frontend/**'
+      - 'application/backend/**'
 
 jobs:
   build-and-deploy:
@@ -29,20 +29,22 @@ jobs:
           
       - name: Install dependencies
         run: |
-          cd application/frontend
+          cd application/backend
           pnpm install
           
       - name: Build
         run: |
-          cd application/frontend
+          cd application/backend
           pnpm build
-        env:
-          VITE_API_URL: https://civisai-ls8ws.kinsta.app
           
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
         with:
-          app-name: civisai-frontend
-          build-dir: application/frontend/dist
+          app-name: civisai-backend
+          build-dir: application/backend/dist
           api-key: ${{ secrets.KINSTA_API_KEY }}
-          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
+          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          start-command: "node dist/index.js"
+          env-vars: |
+            PORT=3001
+            NODE_ENV=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
