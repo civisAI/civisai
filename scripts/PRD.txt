@@ -1,0 +1,318 @@
+# CivisAI - AI-Powered Business Management Platform
+
+## Overview
+CivisAI is an innovative business management platform that leverages artificial intelligence to automate and streamline business operations. The platform uses AI agents (staff) to handle various business functions, from customer service to design and development, allowing businesses to scale their operations efficiently without proportional increases in human resources.
+
+The platform is designed for businesses of all sizes, from sole proprietors to large enterprises, looking to either grow their business, streamline operations, or both. By providing AI-powered staff members who can handle specialized tasks, CivisAI enables businesses to focus on strategic growth while maintaining operational excellence.
+
+## Core Features
+
+### 1. AI Staff Management
+- **What it does**: Provides a team of AI agents (staff) that can handle various business functions
+- **Why it's important**: Enables businesses to scale operations without proportional human resource costs
+- **How it works**: 
+  - Each staff member is assigned a specialized AI model
+  - Staff can handle tasks like customer service, design, development, and strategic planning
+  - Staff members can be recruited and managed through an intuitive interface
+
+### 2. Personal Assistant & Recruiter
+- **What it does**: Provides immediate access to a PA and recruiter upon organization creation
+- **Why it's important**: Helps users manage priorities and build their AI team effectively
+- **How it works**:
+  - PA assists with organization and priority management
+  - Recruiter handles job postings and staff selection
+  - Both powered by Gemini 2.5 Pro for optimal performance
+
+### 3. Tool Integration Hub
+- **What it does**: Seamlessly integrates with popular business tools and platforms
+- **Why it's important**: Enables AI staff to work with existing business infrastructure
+- **How it works**:
+  - Supports integration with major business tools (Shopify, Zendesk, etc.)
+  - Allows AI staff to operate within familiar business environments
+  - Maintains compatibility with common development and design tools
+
+### 4. Business Onboarding
+- **What it does**: Streamlines the process of setting up a new business on the platform
+- **Why it's important**: Ensures proper configuration and staff allocation
+- **How it works**:
+  - Collects business size and type information
+  - Determines current operations and goals
+  - Recommends appropriate AI staff and tools
+
+## User Experience
+
+### User Personas
+
+1. **Sole Proprietor**
+   - Needs help managing multiple aspects of their business
+   - Looking to scale without hiring full-time staff
+   - Requires flexible AI assistance
+
+2. **Small Business Owner (1-2 people)**
+   - Needs to streamline operations
+   - Wants to maintain quality while growing
+   - Requires specialized AI staff for specific tasks
+
+3. **Medium Business Manager (3-19 people)**
+   - Needs to coordinate between human and AI staff
+   - Wants to optimize existing operations
+   - Requires robust tool integration
+
+4. **Large Business Executive (20+ people)**
+   - Needs to manage complex operations
+   - Wants to reduce operational costs
+   - Requires enterprise-level AI staff management
+
+### Key User Flows
+
+1. **Initial Setup**
+   - User creates account
+   - Completes business profile
+   - Receives PA and recruiter
+   - Begins staff recruitment
+
+2. **Staff Management**
+   - Review staff recommendations
+   - Recruit new staff members
+   - Assign tasks and responsibilities
+   - Monitor performance
+
+3. **Tool Integration**
+   - Connect existing business tools
+   - Configure AI staff access
+   - Monitor integration status
+   - Manage permissions
+
+### UI/UX Considerations
+
+1. **Website (Unprotected Routes)**
+   - Dark purple background
+   - Near-white text
+   - Peach accents
+   - Flashy, marketing-focused design
+   - Consistent header with: home, about, pricing, features, login/user
+
+2. **Application (Protected Routes)**
+   - Professional, business-focused design
+   - Consistent header with: dashboard, organizations, teams, staff, user
+   - Clear navigation and task management
+   - Intuitive staff management interface
+
+## Technical Architecture
+
+### System Components
+
+1. **Frontend**
+   - Svelte + TypeScript
+   - Node.js runtime
+   - Responsive design system
+   - Component-based architecture
+
+2. **Backend**
+   - Fastify + TypeScript
+   - Node.js runtime
+   - tRPC API layer
+   - Modular service architecture
+
+3. **Database**
+   - PlanetScale (MySQL-compatible)
+   - Drizzle ORM
+   - SQL schema design
+   - Optimized for scalability
+
+### Data Models
+
+1. **Organization**
+   - Business profile
+   - Staff assignments
+   - Tool integrations
+   - User permissions
+
+2. **Staff**
+   - AI model configuration
+   - Task assignments
+   - Performance metrics
+   - Integration capabilities
+
+3. **Tools**
+   - Integration configurations
+   - Access credentials
+   - Usage statistics
+   - Permission settings
+
+### APIs and Integrations
+
+1. **Authentication**
+   - WorkOS integration
+   - Role-based access control
+   - Session management
+   - Security protocols
+
+2. **External Services**
+   - Shopify
+   - Zendesk
+   - Design tools (Figma, Canva)
+   - Accounting software
+   - Payment processors
+   - Website builders
+   - Marketing tools
+   - Development environments
+   - Communication platforms
+   - Google Workspace
+   - Advertising platforms
+   - Project management tools
+   - CRM systems
+
+### Infrastructure Requirements
+
+1. **Deployment**
+   - Sevalla platform
+   - Scalable architecture
+   - High availability
+   - Load balancing
+
+2. **Monitoring**
+   - Sentry for product monitoring
+   - PostHog for application analytics
+   - Performance tracking
+   - Error reporting
+
+## Development Roadmap
+
+### Phase 1: Foundation
+- Basic platform architecture
+- User authentication
+- Organization management
+- PA and recruiter implementation
+- Core database structure
+
+### Phase 2: Staff Management
+- Staff recruitment system
+- AI model integration
+- Task assignment system
+- Performance monitoring
+- Basic tool integrations
+
+### Phase 3: Tool Integration
+- Integration framework
+- Common tool connectors
+- Permission management
+- Usage tracking
+- Error handling
+
+### Phase 4: Advanced Features
+- Advanced AI capabilities
+- Custom tool development
+- Analytics dashboard
+- Reporting system
+- API documentation
+
+### Phase 5: Enterprise Features
+- Multi-organization support
+- Advanced security features
+- Custom AI model training
+- Enterprise tool integration
+- Compliance features
+
+## Logical Dependency Chain
+
+1. **Foundation Layer**
+   - Authentication system
+   - Database structure
+   - Basic UI components
+   - Core API endpoints
+
+2. **Staff Layer**
+   - AI model integration
+   - Staff management
+   - Task system
+   - Basic monitoring
+
+3. **Integration Layer**
+   - Tool connectors
+   - Permission system
+   - Usage tracking
+   - Error handling
+
+4. **Advanced Layer**
+   - Analytics
+   - Reporting
+   - Custom features
+   - Enterprise capabilities
+
+## Risks and Mitigations
+
+### Technical Challenges
+
+1. **AI Model Performance**
+   - Risk: Inconsistent AI staff performance
+   - Mitigation: Regular model updates and performance monitoring
+
+2. **Tool Integration**
+   - Risk: Complex integration requirements
+   - Mitigation: Modular integration framework and thorough testing
+
+3. **Scalability**
+   - Risk: Performance issues at scale
+   - Mitigation: Robust architecture and load testing
+
+### MVP Considerations
+
+1. **Feature Scope**
+   - Risk: Over-engineering initial release
+   - Mitigation: Focus on core features and essential integrations
+
+2. **User Adoption**
+   - Risk: Complex onboarding process
+   - Mitigation: Streamlined setup and clear documentation
+
+### Resource Constraints
+
+1. **Development Resources**
+   - Risk: Limited development capacity
+   - Mitigation: Prioritized feature development and modular architecture
+
+2. **Integration Resources**
+   - Risk: Limited API access
+   - Mitigation: Phased integration approach and partner relationships
+
+## Appendix
+
+### Technical Specifications
+
+1. **Frontend**
+   - Svelte
+   - TypeScript
+   - Node.js
+   - Responsive design
+
+2. **Backend**
+   - Fastify
+   - TypeScript
+   - tRPC
+   - Node.js
+
+3. **Database**
+   - PlanetScale
+   - Drizzle ORM
+   - SQL
+
+4. **Infrastructure**
+   - Sevalla
+   - Sentry
+   - PostHog
+   - WorkOS
+
+### Integration Specifications
+
+1. **Authentication**
+   - WorkOS implementation
+   - OAuth 2.0
+   - JWT tokens
+   - Role-based access
+
+2. **External Services**
+   - REST APIs
+   - WebSocket connections
+   - OAuth integrations
+   - API key management 
