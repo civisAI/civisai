@@ -1,0 +1,50 @@
+name: Deploy Backend to Kinsta
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'application/backend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'application/backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Install dependencies
+        run: |
+          cd application/backend
+          pnpm install
+          
+      - name: Build
+        run: |
+          cd application/backend
+          pnpm build
+          
+      - name: Deploy to Kinsta
+        uses: kinsta/github-action-deploy@v1
+        with:
+          app-name: civisai-backend
+          build-dir: application/backend/dist
+          api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
+          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          start-command: "node dist/index.js"
+          env-vars: |
+            PORT=3001
+            NODE_ENV=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 

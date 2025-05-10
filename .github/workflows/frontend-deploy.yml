@@ -1,0 +1,48 @@
+name: Deploy Frontend to Kinsta
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'application/frontend/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'application/frontend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          
+      - name: Install dependencies
+        run: |
+          cd application/frontend
+          pnpm install
+          
+      - name: Build
+        run: |
+          cd application/frontend
+          pnpm build
+        env:
+          VITE_API_URL: https://civisai-ls8ws.kinsta.app
+          
+      - name: Deploy to Kinsta
+        uses: kinsta/github-action-deploy@v1
+        with:
+          app-name: civisai-frontend
+          build-dir: application/frontend/dist
+          api-key: ${{ secrets.KINSTA_API_KEY }}
+          environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 
