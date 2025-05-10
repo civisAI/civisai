@@ -39,10 +39,25 @@ jobs:
         env:
           VITE_API_URL: https://civisai-ls8ws.kinsta.app
           
+      - name: Create nixpacks.toml
+        run: |
+          cd application/frontend
+          echo '[phases.setup]
+          nixPkgs = ["nodejs", "pnpm"]
+
+          [phases.install]
+          cmds = ["pnpm install"]
+
+          [phases.build]
+          cmds = ["pnpm build"]
+
+          [start]
+          cmd = "npx serve -s dist"' > nixpacks.toml
+          
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
         with:
           app-name: civisai-frontend
           build-dir: application/frontend/dist
-          api-key: ${{ secrets.KINSTA_API_KEY }}
+          api-key: ${{ secrets.CIVIS_API_KEY_SEVALLA }}
           environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }} 

@@ -37,6 +37,21 @@ jobs:
           cd application/backend
           pnpm build
           
+      - name: Create nixpacks.toml
+        run: |
+          cd application/backend
+          echo '[phases.setup]
+          nixPkgs = ["nodejs", "pnpm"]
+
+          [phases.install]
+          cmds = ["pnpm install"]
+
+          [phases.build]
+          cmds = ["pnpm build"]
+
+          [start]
+          cmd = "node dist/index.js"' > nixpacks.toml
+          
       - name: Deploy to Kinsta
         uses: kinsta/github-action-deploy@v1
         with:
