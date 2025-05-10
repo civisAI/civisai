@@ -1,4 +1,4 @@
-<!-- Test deployment comment -->
+<!-- Test deployment comment - Redeploy attempt -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import Button from './components/Button.svelte';
